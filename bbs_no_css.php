@@ -7,8 +7,8 @@
   $dbh = new PDO($dsn, $user, $password);
   $dbh->query('SET NAMES utf8');
 
-
-
+  // $day = new DateTime();
+      // echo $day->format('Y-m-d');
 
  //配列で取得したデータを格納
    // 配列を初期化(配列を使う準備)
@@ -20,8 +20,10 @@
 	  $comment = htmlspecialchars($_POST['comment']);	
 	  // ２．SQL文を実行する
 	  $sql = 'INSERT INTO `posts`(`nickname`, `comment`, `created`) VALUES ("'.$nickname.'","'.$comment.'",now());' ;
-    var_dump($sql);
-	
+    // var_dump($sql);
+	 
+    // $day = new DateTime();
+    // echo $day->format('Y-m-d');
 	// now()はsql関数のため、””で囲まない
 	  $stmt = $dbh->prepare($sql);
 	  $stmt->execute();
@@ -34,6 +36,10 @@
     $stmt = $dbh->prepare($sql);
     $stmt->execute();
    
+   // $day = new DateTime();
+      // echo $day->format('Y-m-d');
+
+        
 
   // 繰り返し文でデータ取得（フェッチ）
     while (1) {
@@ -43,7 +49,12 @@
      }
      // echo $rec['nickname'];
      $post_datas[] = $rec;
+
     }
+    
+    // $date = '2013-01-01 00:00:00';
+// 　　　　　echo date('Y/m/d', strtotime($date));
+
   }
   // ３．データベースを切断する
   $dbh = null;

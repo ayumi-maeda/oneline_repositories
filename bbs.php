@@ -21,7 +21,7 @@
     $comment = htmlspecialchars($_POST['comment']); 
     // ２．SQL文を実行する
     $sql = 'INSERT INTO `posts`(`nickname`, `comment`, `created`) VALUES ("'.$nickname.'","'.$comment.'",now());' ;
-    var_dump($sql);
+    // var_dump($sql);
   
   // now()はsql関数のため、””で囲まない
     $stmt = $dbh->prepare($sql);
@@ -35,6 +35,10 @@
     $stmt = $dbh->prepare($sql);
     $stmt->execute();
    
+    // $sql = 'string date ( string $format [, int $timestamp = time() ] )';
+
+    // $stmt = $dbh->prepare($sql);
+    // $stmt->execute();
 
   // 繰り返し文でデータ取得（フェッチ）
     while (1) {
@@ -120,16 +124,31 @@
       <div class="col-md-8 content-margin-top">
         <div class="timeline-centered">
           <article class="timeline-entry">
+              <?php if(!empty($_POST)){ 
+                foreach ($post_datas as $post_each){?> 
               <div class="timeline-entry-inner">
+
+                
+                  
+              
                   <div class="timeline-icon bg-success">
-                      <i class="entypo-feather"></i>
-                      <i class="fa fa-cogs"></i>
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                      <!-- <i class="fa fa-user-circle-o" aria-hidden="true"></i> -->
+                      <!-- <i class="entypo-feather"></i> -->
+                      <!-- <i class="fa fa-cogs"></i> -->
                   </div>
                   <div class="timeline-label">
-                      <h2><a href="#">seedくん</a> <span>2016-01-20</span></h2>
+                      <!-- <form method="post" action=""> -->
+                          <!-- <p><input type="text" name="nickname" placeholder="nickname"></p> -->
+                          <!-- <p><textarea type="text" name="comment" placeholder="comment"></textarea></p> -->
+                          <!-- <p><button type="submit" >つぶやく</button></p> -->
+                      
+                      <h2><a href="#"><?php echo $post_each['nickname'] . '<br>'; ?></a><span><a href="#"><?php echo $post_each['comment'] . '<br>';?></a></span>
+                      <a href="#"><?php $post_each['created'] . '<br>' ?></a></h2>
                       <p>つぶやいたコメント</p>
-                  </div>
-              </div>
+                  </div> 
+              </div><?php } }?>
+
           </article>
 
           <article class="timeline-entry begin">
